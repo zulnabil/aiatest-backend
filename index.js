@@ -12,7 +12,7 @@ app.get("/images", async (req, res) => {
   let { tags, pageSize, currentPage } = req.query
   currentPage = +currentPage // convert string to number
   pageSize = +pageSize
-  const startAt = currentPage === 1 ? 0 : pageSize * currentPage - 1 // initiate index start item of array
+  const startAt = currentPage === 1 ? 0 : pageSize * (currentPage - 1) // initiate index start item of array
   try {
     const response = await axios(
       `https://www.flickr.com/services/feeds/photos_public.gne?format=json&${
