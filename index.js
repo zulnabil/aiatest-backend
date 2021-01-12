@@ -1,10 +1,18 @@
 const express = require("express")
+const path = require("path")
 const cors = require("cors")
 const axios = require("axios")
 const app = express()
 const PORT = 4000
 
 app.use(cors())
+
+// Allow dotfiles - this is required for verification by Lets Encrypt's certbot
+app.use(express.static(path.join(__dirname, "build"), { dotfiles: "allow" }))
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"))
+})
 
 app.get("/", (req, res) => res.send("Express Server"))
 
