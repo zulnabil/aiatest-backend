@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "build"), { dotfiles: "allow" }))
 app.get("/", (req, res) => res.send("Express Server"))
 
 app.get("/images", async (req, res) => {
-  let { tags, pageSize, currentPage } = req.query
+  let { tags, pageSize = 4, currentPage = 1 } = req.query
   currentPage = +currentPage // convert string to number
   pageSize = +pageSize
   const startAt = currentPage === 1 ? 0 : pageSize * (currentPage - 1) // initiate index start item of array
