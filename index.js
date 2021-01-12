@@ -10,10 +10,6 @@ app.use(cors())
 // Allow dotfiles - this is required for verification by Lets Encrypt's certbot
 app.use(express.static(path.join(__dirname, "build"), { dotfiles: "allow" }))
 
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"))
-})
-
 app.get("/", (req, res) => res.send("Express Server"))
 
 app.get("/images", async (req, res) => {
@@ -50,6 +46,10 @@ app.get("/images", async (req, res) => {
     console.log(error.message)
     res.json({ error })
   }
+})
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"))
 })
 
 app.listen(PORT, () => {
